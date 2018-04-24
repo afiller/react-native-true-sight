@@ -17,6 +17,7 @@ const noop: () => void = () => {};
 interface Props {
   source: string;
   autoStart: boolean;
+  initialPosition: number;
 
   loader: React.ReactNode;
   middleControlsBar: React.ReactNode;
@@ -50,6 +51,8 @@ export default class VideoPlayer extends React.PureComponent<Props, State> {
     source: PropTypes.string.isRequired,
     autoStart: PropTypes.bool,
 
+    initialPosition: PropTypes.number,
+
     // Customisable components
     loader: PropTypes.node, // Loader component
     // Bar displayed on the middle of the screen.
@@ -67,6 +70,7 @@ export default class VideoPlayer extends React.PureComponent<Props, State> {
 
   static defaultProps = {
     autoStart: true,
+    initialPosition: 0,
     onError: noop,
     onProgress: noop,
     onEnd: noop
@@ -88,7 +92,7 @@ export default class VideoPlayer extends React.PureComponent<Props, State> {
       isLoading: true, // Until buffer loaded.
       showControls: false, // Trigger on mount because we need auto-hide.
       isPaused: !props.autoStart,
-      currentTime: 0, // In seconds.
+      currentTime: props.initialPosition, // In seconds.
       totalTime: 0 // In seconds.
     };
 
