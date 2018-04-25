@@ -34,6 +34,7 @@ export default class VideoPlayer extends React.PureComponent {
     this.setPaused = () => this.setState({ isPaused: true })
     this.getPaused = () => this.state.isPaused
     this.getCurrentTime = () => this.state.currentTime
+    this.openIOSFullscreenPlayer = () => this.player.presentFullscreenPlayer()
 
     this.forcePause = false
   }
