@@ -2,7 +2,8 @@ import * as React from 'react'
 import { View, StyleSheet } from 'react-native'
 import * as PropTypes from 'prop-types'
 import PlayerIcon from './PlayerIcon'
-import { playerPlay, playerPause, playerRestart, disableFullscreen, enableFullscreen } from './images/index'
+import {Icon} from 'react-native-elements'
+
 export default class MiddleControlsBar extends React.PureComponent {
   constructor (props) {
     super(props)
@@ -15,43 +16,47 @@ export default class MiddleControlsBar extends React.PureComponent {
     </View>)
   }
   renderToggleFullscreenIcon () {
-    if (this.props.fullscreen) {
+    if (this.props.inFullscreen) {
       return (
-        <PlayerIcon iconSource={disableFullscreen} onPress={this.props.onToggleFullscreen} />
+        <PlayerIcon icon={<Icon name='fullscreen-exit' color={this.props.iconColor} size={this.props.iconSize} />} onPress={this.props.onToggleFullscreen} />
       )
     } else {
       return (
-        <PlayerIcon iconSource={enableFullscreen} onPress={this.props.onToggleFullscreen} />
+        <PlayerIcon icon={<Icon name='fullscreen' color={this.props.iconColor} size={this.props.iconSize} />} onPress={this.props.onToggleFullscreen} />
       )
     }
   }
   renderPlayIcon () {
     if (this.props.hasFinished) {
-      return this.props.restartButton && (<PlayerIcon iconSource={playerRestart} onPress={() => {
+      return this.props.restartButton && (<PlayerIcon icon={<Icon name='replay' color={this.props.iconColor} size={this.props.iconSize} />} onPress={() => {
         this.restartVideo()
         this.props.setPlaying()
       }} />)
     } else {
       return (
-        this.props.isPaused ? (<PlayerIcon iconSource={playerPlay} onPress={this.props.setPlaying} />) : (<PlayerIcon iconSource={playerPause} onPress={this.props.setPaused} />)
+        this.props.isPaused ? (<PlayerIcon icon={<Icon name='play-arrow' color={this.props.iconColor} size={this.props.iconSize} />} onPress={this.props.setPlaying} />) : (<PlayerIcon icon={<Icon name='pause' color={this.props.iconColor} size={this.props.iconSize} />} onPress={this.props.setPaused} />)
       )
     }
   }
-  renderFullscreenIcon () {
-
-  }
 }
 MiddleControlsBar.propTypes = {
-    // Metadata
+  // Metadata
   isPaused: PropTypes.bool.isRequired,
+  inFullscreen: PropTypes.bool,
   restartButton: PropTypes.bool,
-    // Controls
+  // Style
+  iconSize: PropTypes.number,
+  iconColor: PropTypes.string,
+  // Controls
   setPlaying: PropTypes.func.isRequired,
   setPaused: PropTypes.func.isRequired,
   setPosition: PropTypes.func.isRequired // Move video to the given time (in seconds).
 }
 MiddleControlsBar.defaultProps = {
-  restartButton: true
+  restartButton: true,
+  inFullscreen: false,
+  iconSize: 50,
+  iconColor: '#fafafa'
 }
 const styles = StyleSheet.create({
   barWrapper: {
