@@ -80,7 +80,7 @@ export default class VideoPlayer extends React.PureComponent {
    *
    * @returns {number} Reference to the timeout
    */
-  createControlHider (delay = 3000) {
+  createControlHider (delay = this.props.controlHideDelay) {
     return setTimeout(() => {
       if (!this.state.showControls) {
         return
@@ -186,8 +186,9 @@ VideoPlayer.propTypes = {
   dontHidePlayOnPause: PropTypes.bool,
   source: PropTypes.string.isRequired,
   autoStart: PropTypes.bool,
+  controlHideDelay: PropTypes.number,
   // Customisable components
-  loader: PropTypes.node,
+  loader: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   // Bar displayed on the middle of the screen.
   middleControlsBar: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   middleControlsBarProps: PropTypes.object,
@@ -201,6 +202,7 @@ VideoPlayer.propTypes = {
 }
 VideoPlayer.defaultProps = {
   initialPosition: 0,
+  controlHideDelay: 2500,
   dontHidePlayOnPause: true,
   autoStart: true,
   onError: noop,
