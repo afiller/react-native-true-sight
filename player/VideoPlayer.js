@@ -152,7 +152,7 @@ export default class VideoPlayer extends React.PureComponent {
   }
 
   render () {
-    const { loader, source, onError } = this.props
+    const { loader, source, onError, onFullscreenPlayerWillPresent, onFullscreenPlayerWillDismiss } = this.props
     const { isLoading, isPaused } = this.state
     const Loader = loader || DefaultLoader
     return (<TouchableWithoutFeedback onPress={this.toggleControls}>
@@ -165,6 +165,8 @@ export default class VideoPlayer extends React.PureComponent {
           ref={(ref) => {
             this.player = ref
           }}
+          onFullscreenPlayerWillPresent={onFullscreenPlayerWillPresent}
+          onFullscreenPlayerWillDismiss={onFullscreenPlayerWillDismiss}
           ignoreSilentSwitch={'ignore'}
           repeat={false}
           source={{ uri: source }} style={styles.backgroundVideo}
