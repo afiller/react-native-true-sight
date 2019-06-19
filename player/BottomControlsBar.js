@@ -48,16 +48,16 @@ export default class BottomControlsBar extends React.PureComponent {
   }
 }
 BottomControlsBar.propTypes = {
-    // Metadata
+  // Metadata
   currentTime: PropTypes.number.isRequired,
   totalTime: PropTypes.number.isRequired,
   isPaused: PropTypes.bool.isRequired,
   navigationAllowed: PropTypes.bool,
-    // Controls
+  // Controls
   setPlaying: PropTypes.func.isRequired,
   setPaused: PropTypes.func.isRequired,
   setPosition: PropTypes.func.isRequired,
-    // Styles
+  // Styles
   barColor: PropTypes.string,
   joyStickColor: PropTypes.string // Bar current position color
 }
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   currentTime: {
     color: 'white',
-    width: 40
+    width: 45
   },
   loadingBar: {
     flex: 1,
@@ -83,6 +83,6 @@ const styles = StyleSheet.create({
   },
   totalTime: {
     color: 'white',
-    width: 40
+    width: 45
   }
 })
