@@ -10,9 +10,9 @@ export default class MiddleControlsBar extends React.PureComponent {
     this.restartVideo = () => this.props.setPosition(0)
   }
   render () {
-    return (<View style={styles.barWrapper}>
-      {this.renderPlayIcon()}
-      {this.renderToggleFullscreenIcon()}
+    return (<View accessibilityLabel={'MiddleButtons'} style={styles.barWrapper}>
+      <View accessibilityLabel={'PlayVideoButton'}>{this.renderPlayIcon()}</View>
+      <View accessibilityLabel={'FullScreenButton'}>{this.renderToggleFullscreenIcon()}</View>
     </View>)
   }
   renderToggleFullscreenIcon () {
