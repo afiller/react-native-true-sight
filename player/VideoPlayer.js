@@ -155,7 +155,7 @@ export default class VideoPlayer extends React.PureComponent {
     const { loader, source, onError, onFullscreenPlayerWillPresent, onFullscreenPlayerWillDismiss } = this.props
     const { isLoading, isPaused } = this.state
     const Loader = loader || DefaultLoader
-    return (<TouchableWithoutFeedback onPress={this.toggleControls}>
+    return (<TouchableWithoutFeedback onPress={this.toggleControls} accessible={false}>
       <View style={styles.wrapper}>
         <View style={styles.loaderWrapper} pointerEvents='none'>
           {isLoading ? <Loader /> : null}
