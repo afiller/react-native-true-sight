@@ -12,7 +12,7 @@ export default class VideoPlayer extends React.PureComponent {
     super(props)
     this.state = {
       isLoading: true,
-      showControls: false,
+      showControls: this.props.isAudio ? true : false,
       isPaused: !props.autoStart,
       currentTime: props.initialPosition,
       totalTime: 0 // In seconds.
@@ -82,7 +82,7 @@ export default class VideoPlayer extends React.PureComponent {
    */
   createControlHider (delay = this.props.controlHideDelay) {
     return setTimeout(() => {
-      if (!this.state.showControls) {
+      if (this.props.isAudio || !this.state.showControls) {
         return
       }
       this.setState({
@@ -141,10 +141,10 @@ export default class VideoPlayer extends React.PureComponent {
       return (
         <View style={[styles.controls]}>
           <Animated.View pointerEvents={showControls || (dontHidePlayOnPause && isPaused) ? undefined : 'none'} style={[styles.middleControlsBar, { opacity: (dontHidePlayOnPause && isPaused) ? 1 : this.controlsFadeValue }]}>
-            <MiddleControlsBar {...middleControlsBarProps} {...baseControlsBarProps} hasFinished={(this.state.isPaused && (this.state.currentTime === this.state.totalTime) && (this.state.currentTime !== 0))} />
+            <MiddleControlsBar isAudio={this.props.isAudio} {...middleControlsBarProps} {...baseControlsBarProps} hasFinished={(this.state.isPaused && (this.state.currentTime === this.state.totalTime) && (this.state.currentTime !== 0))} />
           </Animated.View>
           <Animated.View pointerEvents={showControls ? undefined : 'none'} style={[styles.bottomControlsBar, { opacity: this.controlsFadeValue }]}>
-            <BottomControlsBar {...bottomControlsBarProps} {...baseControlsBarProps} />
+            <BottomControlsBar isAudio={this.props.isAudio} {...bottomControlsBarProps} {...baseControlsBarProps} />
           </Animated.View>
         </View>
       )
@@ -200,7 +200,8 @@ VideoPlayer.propTypes = {
   // Hooks
   onError: PropTypes.func,
   onProgress: PropTypes.func,
-  onEnd: PropTypes.func
+  onEnd: PropTypes.func,
+  isAudio: PropTypes.bool
 }
 VideoPlayer.defaultProps = {
   initialPosition: 0,
@@ -209,7 +210,8 @@ VideoPlayer.defaultProps = {
   autoStart: true,
   onError: noop,
   onProgress: noop,
-  onEnd: noop
+  onEnd: noop,
+  isAudio: false
 }
 const styles = StyleSheet.create({
   wrapper: {
