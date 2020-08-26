@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     maxWidth: 160,
     minWidth: 80,
-    backgroundColor: 'rgba(0, 0, 0, 0.25)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderRadius: 5
   },
   barItem: {

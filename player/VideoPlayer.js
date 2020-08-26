@@ -12,7 +12,7 @@ export default class VideoPlayer extends React.PureComponent {
     super(props)
     this.state = {
       isLoading: true,
-      showControls: this.props.isAudio ? true : false,
+      showControls: false,
       isPaused: !props.autoStart,
       currentTime: props.initialPosition,
       totalTime: 0 // In seconds.
@@ -46,11 +46,13 @@ export default class VideoPlayer extends React.PureComponent {
   componentWillUpdate (nextProps, nextState) {
     // Fade in/out on controls.
     if (nextState.showControls !== this.state.showControls) {
-      Animated.timing(this.controlsFadeValue, {
-        toValue: nextState.showControls ? 1 : 0,
-        duration: 250,
-        useNativeDriver: true
-      }).start()
+      if (!this.props.isAudio) {
+        Animated.timing(this.controlsFadeValue, {
+          toValue: nextState.showControls ? 1 : 0,
+          duration: 250,
+          useNativeDriver: true
+        }).start()
+      }
     }
   }
   componentDidUpdate (prevProps, prevState) {
